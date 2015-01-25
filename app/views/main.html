@@ -1,36 +1,47 @@
-<div class="header">
-  <ul class="nav nav-pills pull-right">
-    <li class="active"><a ng-href="#">Home</a></li>
-    <li><a ng-href="#">About</a></li>
-    <li><a ng-href="#">Contact</a></li>
-  </ul>
-  <h3 class="text-muted">sudoku cli</h3>
+<style>
+    .score {
+        font-size: 30px;
+        padding-top: 30px;
+    }
+    .menu-button {
+        padding-top: 36px;
+        padding-left: 20px;
+    }
+</style>
+
+<div>
+    <ul class="nav nav-pills">
+        <li>
+            <div ng-if="user.isLoggedIn" class="circular" ng-style="{'background': 'url(' + user.pic + ') no-repeat'}">
+            </div>
+        </li>
+        <li class="score">
+            Score: {{user.userinfo.score || 0}}
+        </li>
+        <li class="menu-button">
+            <button ng-click="size=size+5" class="btn btn-info">+</button>
+            <button ng-click="size=size-5" class="btn btn-info">-</button>
+        </li>
+        <li class="menu-button">
+            <button class="btn btn-primary"
+                ng-if="!user.isLoggedIn"
+                ng-click="user.login()">
+                Login
+            </button>
+        </li>
+    </ul>
 </div>
+<hr>
+<table>
+    <tr ng-repeat="i in range9" ng-class="{'bot-border': $index == 2 || $index == 5}">
+        <td ng-repeat="j in range9"
+            ng-class="{'right-border': $index == 2 || $index == 5, clickable: !getVal(i,j).found}"
+            ng-style="{width:size, 'height':size, 'font-size': size-10, 'line-height': size - 10 + 'px'}"
+            ng-click="pickNumber($parent.$index, $index)">
+            <span ng-show="getVal(i,j).found">
+                {{getVal(i,j).val}}
+            </span>
+        </td>
+    </tr>
+</table>
 
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>
-
-<div class="footer">
-  <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-</div>

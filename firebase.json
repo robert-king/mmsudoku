@@ -1,0 +1,9 @@
+{
+  "firebase": "mmsudoku",
+  "public": "dist",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

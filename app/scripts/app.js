@@ -1,4 +1,4 @@
 'use strict';
 
 angular
-  .module('sudokuCliApp', []);
+  .module('sudokuCliApp', ['firebase', 'ngDragDrop']);
