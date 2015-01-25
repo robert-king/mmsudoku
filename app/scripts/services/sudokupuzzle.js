@@ -43,6 +43,14 @@ angular.module('sudokuCliApp')
       }, 10*1000)
     };
 
+    var colour = function(val) {
+      //colour square for 3 seconds
+      val.colour = true;
+      $timeout(function() {
+        val.colour = false;
+      }, 3 * 1000);
+    }
+
     var sp = {
       getVal: function(i, j) {
         return board[i][j];
@@ -54,6 +62,7 @@ angular.module('sudokuCliApp')
         }
         if (val.val === v) {
           val.found = true;
+          colour(val);
           sudoku[i] = sudoku[i] || {};
           sudoku[i][j] = true;
           sudoku.$save();
@@ -76,6 +85,9 @@ angular.module('sudokuCliApp')
         for (var i = 0; i < 9; i++) {
           for (var j = 0; j < 9; j++) {
             if (sudoku[i] && sudoku[i][j]) {
+              if (!board[i][j].found) {
+                colour(sp.getVal(i, j));
+              }
               board[i][j].found = true;
             } else {
               board[i][j].found = sudokuSolver.getVal(i, j).found;
