@@ -10,9 +10,17 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
+
+    //<script src="bower_components/jquery/dist/jquery.js"></script>
+    //<script src="bower_components/angular/angular.js"></script>
+    //<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    //<script src="bower_components/firebase/firebase.js"></script>
+    //<script src="bower_components/angularfire/dist/angularfire.js"></script>
     files: [
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/bower_components/firebase/firebase.js',
+      'app/bower_components/angularfire/dist/angularfire.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',

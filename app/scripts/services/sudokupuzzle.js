@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('sudokuCliApp')
-  .factory('sudokuPuzzle', ['$timeout', 'sudokuSolver', 'ref', 'user', function ($timeout, sudokuSolver, ref, user) {
+  .factory('sudokuPuzzle', ['$timeout', 'sudokuSolver', 'ref'/*, 'user'*/,
+    function ($timeout, sudokuSolver, ref/*, user*/) {
 
     var sudoku = ref.sudoku();
 
@@ -29,7 +30,7 @@ angular.module('sudokuCliApp')
     };
 
     var prepareReset = function() {
-      console.log('preparing to reset in 10 sec..');
+      console.log('preparing to reset in ~15 sec..');
       $timeout(function() {
         console.log('resetting..');
         for (var i = 0; i < 9; i++) {
@@ -40,7 +41,7 @@ angular.module('sudokuCliApp')
         }
         sudoku.$save();
         populateBoard();
-      }, 10*1000)
+      }, 10*1000 + Math.random() * 10);
     };
 
     var colour = function(val) {
@@ -49,7 +50,7 @@ angular.module('sudokuCliApp')
       $timeout(function() {
         val.colour = false;
       }, 3 * 1000);
-    }
+    };
 
     var sp = {
       getVal: function(i, j) {
@@ -66,8 +67,8 @@ angular.module('sudokuCliApp')
           sudoku[i] = sudoku[i] || {};
           sudoku[i][j] = true;
           sudoku.$save();
-          console.log(user);
-          user.increaseScore();
+          //console.log(user);
+          //user.increaseScore();
 
           if (isFinished()) {
             prepareReset();
@@ -78,9 +79,7 @@ angular.module('sudokuCliApp')
       }
     };
 
-    var init = function() {
-      populateBoard();
-      sudoku.$watch(function() {
+    var boardChanged = function() {
         console.log('here');
         for (var i = 0; i < 9; i++) {
           for (var j = 0; j < 9; j++) {
@@ -95,13 +94,18 @@ angular.module('sudokuCliApp')
           }
         }
         if (isFinished()) {
-            prepareReset();
-          }
-      });
+          prepareReset();
+        }
+      };
+
+    var init = function() {
+      populateBoard();
+      sudoku.$watch(boardChanged);
       if (isFinished()) {
         prepareReset();
       }
     };
+
     init();
     return sp;
   }]);
