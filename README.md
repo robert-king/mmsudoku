@@ -7,7 +7,7 @@ You need to have npm installed correctly, you can see a guide that I found here:
 
 in your terminal:
 
-* git clone git@github.com:alvarouribe/mmsudoku.git
+* git clone git@github.com:robert-king/mmsudoku.git
 * cd mmsudoku
 * npm install 
 * bower install 
